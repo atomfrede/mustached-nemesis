@@ -2,5 +2,5 @@
 /AndroidManifest.xml~
 /pom.xml~
 /.settings
-/.apt-generated
+/.apt_generated
 .factorypath
