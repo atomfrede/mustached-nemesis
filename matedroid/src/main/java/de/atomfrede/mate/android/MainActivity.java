@@ -3,6 +3,8 @@ package de.atomfrede.mate.android;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import de.atomfrede.mate.android.preferences.*;
+
 import android.app.Activity;
 import android.util.Log;
 import android.widget.ImageButton;
@@ -14,14 +16,16 @@ import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
+import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends Activity {
 
 	public static final String TAG = "MainActivity";
 
+	@Pref
+	MyMatePreferences_ mPrefs;
 
-	
 	@ViewById(R.id.get_refreshed_button)
 	protected ImageButton getRefreshedButton;
 
@@ -31,17 +35,21 @@ public class MainActivity extends Activity {
 	}
 
 	@AfterInject
-	public void afterInject(){
+	public void afterInject() {
 		loadAccountData();
 	}
-	
+
+	public void afterViews() {
+
+	}
+
 	@Background
 	public void loadAccountData() {
 		String response = HttpRequest
 				.get("http://10.0.2.2:8080/mate.application/api/login")
 				.basic("fred", "fred").acceptJson().body();
 		Log.d(TAG, "Response was " + response);
-		
+
 		try {
 			JSONObject jsono = new JSONObject(response);
 			String firstname = jsono.getString("firstname");
@@ -49,22 +57,31 @@ public class MainActivity extends Activity {
 			String username = jsono.getString("username");
 			String email = jsono.getString("email");
 			Long userId = jsono.getLong("id");
-			
+
 			JSONObject jsonAccount = jsono.getJSONObject("account");
-			double accountValue = jsonAccount.getDouble("value");
+			long accountValue = jsonAccount.getLong("value");
 			Long accountId = jsonAccount.getLong("id");
-			
-			
+
+			mPrefs.edit().userId().put(userId).username().put(username)
+					.firstname().put(firstname).lastname().put(lastname)
+					.email().put(email).accountId().put(accountId)
+					.accountValue().put(accountValue).apply();
+
+			onAccountReceived();
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@UiThread
 	public void onAccountReceived() {
 
+		getActionBar().setSubtitle(
+				mPrefs.firstname().get() + " " + mPrefs.lastname().get() + " ("
+						+ mPrefs.username().get() + ")");
 	}
 
 }
