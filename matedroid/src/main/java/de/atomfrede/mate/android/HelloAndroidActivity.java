@@ -1,7 +1,6 @@
 package de.atomfrede.mate.android;
 
 
-import net.simonvt.menudrawer.MenuDrawer;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
@@ -13,7 +12,6 @@ import com.googlecode.androidannotations.annotations.EActivity;
 @EActivity
 public class HelloAndroidActivity extends Activity {
 
-	 private MenuDrawer mDrawer;
 	 
     /**
      * Called when the activity is first created.
@@ -25,7 +23,7 @@ public class HelloAndroidActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.main);
+//        setContentView(R.layout.main);
         ActionBar ab = getActionBar();
         ab.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         

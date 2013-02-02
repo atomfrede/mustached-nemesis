@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- File created by the Android Action Bar Style Generator
+<!--
+     File created by the Android Action Bar Style Generator
 
      Copyright (C) 2012 readyState Software Ltd
 
@@ -15,7 +16,8 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
 <resources>
     <color name="pressed_matedroid">#CC0032fc</color>
+    <color name="cards_background">#ffffff</color>
+    <color name="activity_background">#e0e0e0</color>
 </resources>

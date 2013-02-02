@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:id="@+id/my_account_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/cards_background" >
+        <TextView
+            android:id="@+id/my_account_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Account" />
+        <TextView
+            android:id="@+id/value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/my_account_header"
+            android:text="TextView" />
+        <TextView
+            android:id="@+id/mate_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/value"
+            android:text="TextView" />
+    </RelativeLayout>
+    <ImageButton
+        android:id="@+id/get_refreshed_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@null"
+        android:src="@drawable/ic_consume" />
+    <TextView
+        android:id="@+id/get_refrehsed_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+    <RelativeLayout
+        android:id="@+id/available_mates_card"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/cards_background" >
+        <TextView
+            android:id="@+id/available_mates_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Account" />
+        <TextView
+            android:id="@+id/available_mates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/available_mates_header"
+            android:text="TextView" />
+    </RelativeLayout>
+</LinearLayout>
