@@ -3,11 +3,9 @@ package de.atomfrede.mate.android;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import de.atomfrede.mate.android.preferences.*;
-
 import android.app.Activity;
 import android.util.Log;
-import android.widget.ImageButton;
+import android.widget.Button;
 
 import com.github.kevinsawicki.http.HttpRequest;
 import com.googlecode.androidannotations.annotations.AfterInject;
@@ -18,6 +16,8 @@ import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 
+import de.atomfrede.mate.android.preferences.MyMatePreferences_;
+
 @EActivity(R.layout.activity_main)
 public class MainActivity extends Activity {
 
@@ -27,11 +27,11 @@ public class MainActivity extends Activity {
 	MyMatePreferences_ mPrefs;
 
 	@ViewById(R.id.get_refreshed_button)
-	protected ImageButton getRefreshedButton;
+	protected Button getRefreshedButton;
 
 	@Click(R.id.get_refreshed_button)
 	public void getRefreshed() {
-
+		getBottleOfMate();
 	}
 
 	@AfterInject
@@ -43,6 +43,14 @@ public class MainActivity extends Activity {
 
 	}
 
+	@Background
+	public void getBottleOfMate(){
+		String response = HttpRequest.put("http://10.0.2.2:8080/mate.application/api/consume")
+		.basic("fred", "fred").acceptJson().body();
+		
+		Log.d(TAG, "Response was " + response);
+	}
+	
 	@Background
 	public void loadAccountData() {
 		String response = HttpRequest
@@ -82,6 +90,11 @@ public class MainActivity extends Activity {
 		getActionBar().setSubtitle(
 				mPrefs.firstname().get() + " " + mPrefs.lastname().get() + " ("
 						+ mPrefs.username().get() + ")");
+	}
+	
+	@UiThread
+	public void onBottleRetrieved(){
+		
 	}
 
 }

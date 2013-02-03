@@ -26,8 +26,7 @@
         <item name="android:actionBarStyle">@style/matedroid_solid_ActionBar</item>
         <item name="android:panelBackground">@drawable/menu_hardkey_panel_matedroid</item>
         <!-- Light.DarkActionBar specific -->
-        <item name="android:actionBarWidgetTheme">@style/Theme.matedroid.widget</item>
-        <item name="android:windowBackground">@color/activity_background</item>
+        <item name="android:actionBarWidgetTheme">@style/Theme.matedroid.widget</item><item name="android:windowBackground">@color/activity_background</item>
     </style>
     <style name="matedroid_solid_ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@drawable/ab_solid_matedroid</item>
