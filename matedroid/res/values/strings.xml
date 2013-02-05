@@ -2,4 +2,11 @@
 <resources>
     <string name="hello">Hello Matedroid!</string>
     <string name="app_name">Matedroid</string>
+    <string name="bottle_success">You\'re refreshed!</string>
+    <string name="my_account_header">My Account</string>
+    <string name="my_account_consumes">Your Mates: %1$d</string>
+    <string name="my_account_credit">Current credit: %1$d</string>
+    <string name="all_bottles_header">Available Mates</string>
+    <string name="all_bottles_text">%1$d mates left.</string>
+    <string name="error_no_mates">No mates left. Need some supplies!</string>
 </resources>

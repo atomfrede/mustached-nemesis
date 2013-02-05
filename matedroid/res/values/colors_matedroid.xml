@@ -19,4 +19,6 @@
 <resources>
     <color name="pressed_matedroid">#CC0032fc</color>
     <color name="activity_background">#f2f2f2</color>
+    <color name="card_mate_nearly_empty">#c00</color>
+    <color name="card_mate_less">#f80</color>
 </resources>
