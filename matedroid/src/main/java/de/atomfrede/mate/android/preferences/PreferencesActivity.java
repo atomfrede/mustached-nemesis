@@ -38,9 +38,13 @@ public class PreferencesActivity extends FragmentActivity {
 				&& !"".equals(mPrefs.username().get().trim())) {
 			username.setText(mPrefs.username().get());
 		}
+		
+		if(mPrefs.password().get() != null && !"".equals(mPrefs.password().get().trim())){
+			password.setText(mPrefs.password().get());
+		}
 	}
-	
-	public void onBackPressed(){
+
+	public void onBackPressed() {
 		super.onBackPressed();
 	}
 }
