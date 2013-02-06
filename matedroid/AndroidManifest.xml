@@ -26,5 +26,7 @@
                     android:scheme="app" />
             </intent-filter>
         </activity>
+        <activity android:name=".preferences.PreferencesActivity_"></activity>
+
     </application>
 </manifest>
