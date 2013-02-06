@@ -12,7 +12,7 @@
         android:background="@drawable/card_background" >
         <TextView
             android:id="@+id/my_account_header"
-            style="@style/CardTitleBold"
+            style="@style/CardTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/my_account_header" />
@@ -55,7 +55,7 @@
         android:background="@drawable/card_background" >
         <TextView
             android:id="@+id/available_mates_header"
-            style="@style/CardTitleBold"
+            style="@style/CardTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/all_bottles_header" />

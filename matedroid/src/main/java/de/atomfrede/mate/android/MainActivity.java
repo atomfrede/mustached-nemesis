@@ -1,5 +1,7 @@
 package de.atomfrede.mate.android;
 
+import java.net.HttpURLConnection;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.kevinsawicki.http.HttpRequest;
+import com.github.kevinsawicki.http.HttpRequest.HttpRequestException;
 import com.googlecode.androidannotations.annotations.AfterInject;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
@@ -118,37 +121,50 @@ public class MainActivity extends Activity {
 
 	@Background
 	public void loadAccountData() {
-		String response = HttpRequest
-				.get("http://192.168.0.101:8080/mate.application/api/login")
-				.basic("fred", "fred").acceptJson().body();
-		Log.d(TAG, "Response was " + response);
-
+		HttpRequest request = HttpRequest.get(
+				"http://192.168.0.101:8080/mate.application/api/login").basic(
+				"fred", "fred");
 		try {
-			JSONObject jsono = new JSONObject(response);
-			String firstname = jsono.getString("firstname");
-			String lastname = jsono.getString("lastname");
-			String username = jsono.getString("username");
-			String email = jsono.getString("email");
-			Long userId = jsono.getLong("id");
+			int code = request.code();
 
-			JSONObject jsonAccount = jsono.getJSONObject("account");
-			long accountValue = jsonAccount.getLong("value");
-			Long accountId = jsonAccount.getLong("id");
+			if (code == HttpURLConnection.HTTP_OK) {
+				// go one with normal stuff
+				String response = request.acceptJson().body();
 
-			Log.d(TAG, "Account Value " + accountValue);
+				Log.d(TAG, "Response was " + response);
 
-			mPrefs.edit().userId().put(userId).username().put(username)
-					.firstname().put(firstname).lastname().put(lastname)
-					.email().put(email).accountId().put(accountId)
-					.accountValue().put(accountValue).apply();
+				try {
+					JSONObject jsono = new JSONObject(response);
+					String firstname = jsono.getString("firstname");
+					String lastname = jsono.getString("lastname");
+					String username = jsono.getString("username");
+					String email = jsono.getString("email");
+					Long userId = jsono.getLong("id");
 
-			onAccountReceived();
+					JSONObject jsonAccount = jsono.getJSONObject("account");
+					long accountValue = jsonAccount.getLong("value");
+					Long accountId = jsonAccount.getLong("id");
 
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+					Log.d(TAG, "Account Value " + accountValue);
+
+					mPrefs.edit().userId().put(userId).username().put(username)
+							.firstname().put(firstname).lastname()
+							.put(lastname).email().put(email).accountId()
+							.put(accountId).accountValue().put(accountValue)
+							.apply();
+
+					onAccountReceived();
+
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else {
+				onConnectionError();
+			}
+		} catch (HttpRequestException eq) {
+			onConnectionError();
 		}
-
 	}
 
 	@UiThread
@@ -216,6 +232,14 @@ public class MainActivity extends Activity {
 		getAvailableMates();
 		getConsumedMates();
 		loadAccountData();
+	}
+
+	@UiThread
+	public void onConnectionError() {
+		Log.d(TAG, "On Connection Error");
+		Resources res = getResources();
+		availableMates.setText(res.getString(R.string.error_connection_failed));
+		availableMates.setTextColor(res.getColor(R.color.error_color));
 	}
 
 }
