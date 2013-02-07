@@ -51,6 +51,10 @@ public class PreferencesActivity extends FragmentActivity {
 		super.onBackPressed();
 	}
 	
+	protected boolean checkForValidValues(){
+		return false;
+	}
+	
 	protected void readApiRoot(){
 		mPrefs.edit().apiRoot().put(restRoot.getText().toString()).apply();
 	}

@@ -36,6 +36,11 @@ public class MainActivity extends Activity {
 
 	public static final String TAG = "MainActivity";
 
+	public static final String API_LOGIN = "/api/login";
+	public static final String API_AVAILABLE_MATES = "/api/bottle/count";
+	public static final String API_CONSUME = "/api/consume";
+	public static final String API_MY_BOTTLES = "/api/consume/count";
+
 	@Pref
 	protected MyMatePreferences_ mPrefs;
 
@@ -71,7 +76,13 @@ public class MainActivity extends Activity {
 
 	@AfterInject
 	public void afterInject() {
-		if(mPrefs.apiRoot().get()== null || "".equals(mPrefs.apiRoot().get())){
+		if (mPrefs.apiRoot().get() == null || "".equals(mPrefs.apiRoot().get())) {
+			showSettings();
+		}
+		if(mPrefs.username().get() == null || "".equals(mPrefs.username().get())){
+			showSettings();
+		}
+		if(mPrefs.password().get() == null || "".equals(mPrefs.password().get())){
 			showSettings();
 		}
 		loadAccountData();
@@ -86,8 +97,9 @@ public class MainActivity extends Activity {
 	@Background
 	public void getConsumedMates() {
 		String response = HttpRequest
-				.get("http://192.168.0.101:8080/mate.application/api/consume/count")
-				.basic("fred", "fred").acceptJson().body();
+				.get(mPrefs.apiRoot().get() + API_MY_BOTTLES)
+				.basic(mPrefs.username().get(), mPrefs.password().get())
+				.acceptJson().body();
 
 		int consumedMates = Integer.parseInt(response);
 
@@ -98,8 +110,9 @@ public class MainActivity extends Activity {
 	@Background
 	public void getAvailableMates() {
 		String response = HttpRequest
-				.get("http://192.168.0.101:8080/mate.application/api/bottle/count")
-				.basic("fred", "fred").acceptJson().body();
+				.get(mPrefs.apiRoot().get() + API_AVAILABLE_MATES)
+				.basic(mPrefs.username().get(), mPrefs.password().get())
+				.acceptJson().body();
 
 		Log.d(TAG, "Response was " + response);
 
@@ -118,9 +131,9 @@ public class MainActivity extends Activity {
 
 	@Background
 	public void getRealBottleOfMate() {
-		String response = HttpRequest
-				.put("http://192.168.0.101:8080/mate.application/api/consume")
-				.basic("fred", "fred").acceptJson().body();
+		String response = HttpRequest.put(mPrefs.apiRoot().get() + API_CONSUME)
+				.basic(mPrefs.username().get(), mPrefs.password().get())
+				.acceptJson().body();
 
 		Log.d(TAG, "Response was " + response);
 		onBottleRetrieved();
@@ -129,8 +142,8 @@ public class MainActivity extends Activity {
 	@Background
 	public void loadAccountData() {
 		HttpRequest request = HttpRequest.get(
-				"http://192.168.0.101:8080/mate.application/api/login").basic(
-				"fred", "fred");
+				mPrefs.apiRoot().get() + API_LOGIN).basic(
+				mPrefs.username().get(), mPrefs.password().get());
 		try {
 			int code = request.code();
 
@@ -248,8 +261,8 @@ public class MainActivity extends Activity {
 		availableMates.setText(res.getString(R.string.error_connection_failed));
 		availableMates.setTextColor(res.getColor(R.color.error_color));
 	}
-	
-	public void showSettings(){
+
+	public void showSettings() {
 		Intent intent = new Intent(this, PreferencesActivity_.class);
 		startActivity(intent);
 	}
