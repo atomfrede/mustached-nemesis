@@ -45,6 +45,21 @@ public class PreferencesActivity extends FragmentActivity {
 	}
 
 	public void onBackPressed() {
+		readApiRoot();
+		readUserName();
+		readPassword();
 		super.onBackPressed();
+	}
+	
+	protected void readApiRoot(){
+		mPrefs.edit().apiRoot().put(restRoot.getText().toString()).apply();
+	}
+	
+	protected void readUserName(){
+		mPrefs.edit().username().put(username.getText().toString()).apply();
+	}
+	
+	protected void readPassword(){
+		mPrefs.edit().password().put(password.getText().toString()).apply();
 	}
 }

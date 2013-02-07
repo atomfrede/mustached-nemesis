@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.nfc.NfcAdapter;
 import android.util.Log;
@@ -19,14 +20,17 @@ import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 
 import de.atomfrede.mate.android.preferences.MyMatePreferences_;
+import de.atomfrede.mate.android.preferences.PreferencesActivity_;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
+@OptionsMenu(R.menu.menu_main)
 @EActivity(R.layout.activity_main)
 public class MainActivity extends Activity {
 
@@ -67,6 +71,9 @@ public class MainActivity extends Activity {
 
 	@AfterInject
 	public void afterInject() {
+		if(mPrefs.apiRoot().get()== null || "".equals(mPrefs.apiRoot().get())){
+			showSettings();
+		}
 		loadAccountData();
 		getAvailableMates();
 	}
@@ -240,6 +247,11 @@ public class MainActivity extends Activity {
 		Resources res = getResources();
 		availableMates.setText(res.getString(R.string.error_connection_failed));
 		availableMates.setTextColor(res.getColor(R.color.error_color));
+	}
+	
+	public void showSettings(){
+		Intent intent = new Intent(this, PreferencesActivity_.class);
+		startActivity(intent);
 	}
 
 }

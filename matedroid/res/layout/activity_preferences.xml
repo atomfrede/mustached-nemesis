@@ -16,7 +16,7 @@
         android:id="@+id/rest_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/settings_rest_root"
+        android:hint="www.example.org/api"
         android:ems="10" >
 
         <requestFocus />
