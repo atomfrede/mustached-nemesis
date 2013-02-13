@@ -161,7 +161,7 @@ public class MainActivity extends Activity {
 
 			if (code == HttpURLConnection.HTTP_OK) {
 				// go one with normal stuff
-				String response = request.acceptJson().body();
+				String response = request.body();
 
 				Log.d(TAG, "Response was " + response);
 
@@ -201,10 +201,12 @@ public class MainActivity extends Activity {
 
 	@UiThread
 	public void onConsumedMatesReceived(int consumedMates) {
+		setRefreshActionButtonState(false);
 		Resources res = getResources();
 		String consumedMatesText = String.format(
 				res.getString(R.string.my_account_consumes), consumedMates);
 		myMates.setText(consumedMatesText);
+	
 
 	}
 
@@ -218,7 +220,9 @@ public class MainActivity extends Activity {
 		if (pendingConsume) {
 			if (mates <= 0) {
 				onNoMatesAvailable();
+				availableMates.setTextColor(res.getColor(R.color.error_color));
 			} else {
+				availableMates.setTextColor(res.getColor(R.color.card_text));
 				getRealBottleOfMate();
 			}
 
@@ -228,7 +232,7 @@ public class MainActivity extends Activity {
 
 	@UiThread
 	public void onAccountReceived() {
-
+		setRefreshActionButtonState(false);
 		getActionBar().setSubtitle(
 				mPrefs.firstname().get() + " " + mPrefs.lastname().get() + " ("
 						+ mPrefs.username().get() + ")");
@@ -246,6 +250,7 @@ public class MainActivity extends Activity {
 			startedFromTag = false;
 		}
 
+		
 		myAccountPanel.setVisibility(View.VISIBLE);
 		getRefreshedButton.setVisibility(View.VISIBLE);
 		getConsumedMates();
@@ -253,6 +258,7 @@ public class MainActivity extends Activity {
 
 	@UiThread
 	public void onBottleRetrieved() {
+		Crouton.cancelAllCroutons();
 		Crouton.makeText(this, R.string.bottle_success, Style.CONFIRM).show();
 		startedFromTag = false;
 		getIntent().setAction(null);
@@ -264,6 +270,7 @@ public class MainActivity extends Activity {
 
 	@UiThread
 	public void onNoMatesAvailable() {
+		Crouton.cancelAllCroutons();
 		Crouton.makeText(this, R.string.error_no_mates, Style.ALERT).show();
 		getAvailableMates();
 		getConsumedMates();
@@ -284,16 +291,16 @@ public class MainActivity extends Activity {
 		setRefreshActionButtonState(false);
 	}
 
-	public void showSettings() {
-		Intent intent = new Intent(this, PreferencesActivity_.class);
-		startActivity(intent);
-	}
-
 	@OptionsItem(R.id.refresh)
 	public void refreshView() {
 		setRefreshActionButtonState(true);
 		loadAccountData();
 		getAvailableMates();
+	}
+	
+	@OptionsItem(R.id.settings)
+	public void showSettings(){
+		PreferencesActivity_.intent(this).start();
 	}
 
 	@Override

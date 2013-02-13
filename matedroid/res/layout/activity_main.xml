@@ -9,8 +9,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:visibility="invisible"
-        android:background="@drawable/card_background" >
+        android:background="@drawable/card_background"
+        android:visibility="invisible" >
         <TextView
             android:id="@+id/my_account_header"
             style="@style/CardTitle"
@@ -47,8 +47,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:layout_weight="1"
-        android:visibility="invisible"
-        android:drawableTop="@drawable/ic_consume" />
+        android:drawableTop="@drawable/ic_consume"
+        android:visibility="invisible" />
     <RelativeLayout
         android:id="@+id/available_mates_card"
         android:layout_width="fill_parent"
