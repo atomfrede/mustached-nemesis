@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.nfc.NfcAdapter;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -22,6 +23,7 @@ import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
@@ -48,7 +50,7 @@ public class MainActivity extends Activity {
 
 	@ViewById(R.id.my_account_layout)
 	protected RelativeLayout myAccountPanel;
-	
+
 	@ViewById(R.id.get_refreshed_button)
 	protected Button getRefreshedButton;
 
@@ -60,6 +62,8 @@ public class MainActivity extends Activity {
 
 	@ViewById(R.id.value)
 	protected TextView myCredit;
+	
+	protected Menu optionsMenu;
 
 	protected boolean startedFromTag = false;
 
@@ -84,19 +88,22 @@ public class MainActivity extends Activity {
 		if (mPrefs.apiRoot().get() == null || "".equals(mPrefs.apiRoot().get())) {
 			showSettings();
 		}
-		if(mPrefs.username().get() == null || "".equals(mPrefs.username().get())){
+		if (mPrefs.username().get() == null
+				|| "".equals(mPrefs.username().get())) {
 			showSettings();
 		}
-		if(mPrefs.password().get() == null || "".equals(mPrefs.password().get())){
+		if (mPrefs.password().get() == null
+				|| "".equals(mPrefs.password().get())) {
 			showSettings();
 		}
-		loadAccountData();
-		getAvailableMates();
+		
 	}
 
 	@AfterViews
 	public void afterViews() {
-		// loadAccountData();
+		setRefreshActionButtonState(true);
+		loadAccountData();
+		getAvailableMates();
 	}
 
 	@Background
@@ -198,7 +205,7 @@ public class MainActivity extends Activity {
 		String consumedMatesText = String.format(
 				res.getString(R.string.my_account_consumes), consumedMates);
 		myMates.setText(consumedMatesText);
-		
+
 	}
 
 	@UiThread
@@ -252,6 +259,7 @@ public class MainActivity extends Activity {
 		getAvailableMates();
 		getConsumedMates();
 		loadAccountData();
+		setRefreshActionButtonState(false);
 	}
 
 	@UiThread
@@ -260,6 +268,7 @@ public class MainActivity extends Activity {
 		getAvailableMates();
 		getConsumedMates();
 		loadAccountData();
+		setRefreshActionButtonState(false);
 	}
 
 	@UiThread
@@ -268,14 +277,47 @@ public class MainActivity extends Activity {
 		Resources res = getResources();
 		availableMates.setText(res.getString(R.string.error_connection_failed));
 		availableMates.setTextColor(res.getColor(R.color.error_color));
-		
+
 		getRefreshedButton.setVisibility(View.INVISIBLE);
 		myAccountPanel.setVisibility(View.INVISIBLE);
+		
+		setRefreshActionButtonState(false);
 	}
 
 	public void showSettings() {
 		Intent intent = new Intent(this, PreferencesActivity_.class);
 		startActivity(intent);
+	}
+
+	@OptionsItem(R.id.refresh)
+	public void refreshView() {
+		setRefreshActionButtonState(true);
+		loadAccountData();
+		getAvailableMates();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// MenuInflater inflater = getSupportMenuInflater();
+		// sinflater.inflate(R.menu.main, menu);
+		optionsMenu = menu;
+		return true;
+	}
+
+	public void setRefreshActionButtonState(boolean refreshing) {
+		if (optionsMenu == null) {
+			return;
+		}
+
+		final android.view.MenuItem refreshItem = optionsMenu.findItem(R.id.refresh);
+		if (refreshItem != null) {
+			if (refreshing) {
+				refreshItem
+						.setActionView(R.layout.actionbar_indeterminate_progress);
+			} else {
+				refreshItem.setActionView(null);
+			}
+		}
 	}
 
 }
