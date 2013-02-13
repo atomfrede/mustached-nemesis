@@ -10,7 +10,9 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.nfc.NfcAdapter;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.kevinsawicki.http.HttpRequest;
@@ -44,6 +46,9 @@ public class MainActivity extends Activity {
 	@Pref
 	protected MyMatePreferences_ mPrefs;
 
+	@ViewById(R.id.my_account_layout)
+	protected RelativeLayout myAccountPanel;
+	
 	@ViewById(R.id.get_refreshed_button)
 	protected Button getRefreshedButton;
 
@@ -193,6 +198,7 @@ public class MainActivity extends Activity {
 		String consumedMatesText = String.format(
 				res.getString(R.string.my_account_consumes), consumedMates);
 		myMates.setText(consumedMatesText);
+		
 	}
 
 	@UiThread
@@ -233,6 +239,8 @@ public class MainActivity extends Activity {
 			startedFromTag = false;
 		}
 
+		myAccountPanel.setVisibility(View.VISIBLE);
+		getRefreshedButton.setVisibility(View.VISIBLE);
 		getConsumedMates();
 	}
 
@@ -260,6 +268,9 @@ public class MainActivity extends Activity {
 		Resources res = getResources();
 		availableMates.setText(res.getString(R.string.error_connection_failed));
 		availableMates.setTextColor(res.getColor(R.color.error_color));
+		
+		getRefreshedButton.setVisibility(View.INVISIBLE);
+		myAccountPanel.setVisibility(View.INVISIBLE);
 	}
 
 	public void showSettings() {

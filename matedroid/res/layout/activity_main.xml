@@ -9,6 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:visibility="invisible"
         android:background="@drawable/card_background" >
         <TextView
             android:id="@+id/my_account_header"
@@ -46,6 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:layout_weight="1"
+        android:visibility="invisible"
         android:drawableTop="@drawable/ic_consume" />
     <RelativeLayout
         android:id="@+id/available_mates_card"
