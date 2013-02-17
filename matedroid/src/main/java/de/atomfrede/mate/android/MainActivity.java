@@ -188,8 +188,8 @@ public class MainActivity extends Activity {
 					onAccountReceived();
 
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
+					onConnectionError();
 				}
 			} else {
 				onConnectionError();
@@ -281,6 +281,7 @@ public class MainActivity extends Activity {
 	@UiThread
 	public void onConnectionError() {
 		Log.d(TAG, "On Connection Error");
+		setRefreshActionButtonState(false);
 		Resources res = getResources();
 		availableMates.setText(res.getString(R.string.error_connection_failed));
 		availableMates.setTextColor(res.getColor(R.color.error_color));
@@ -288,7 +289,7 @@ public class MainActivity extends Activity {
 		getRefreshedButton.setVisibility(View.INVISIBLE);
 		myAccountPanel.setVisibility(View.INVISIBLE);
 		
-		setRefreshActionButtonState(false);
+		
 	}
 
 	@OptionsItem(R.id.refresh)

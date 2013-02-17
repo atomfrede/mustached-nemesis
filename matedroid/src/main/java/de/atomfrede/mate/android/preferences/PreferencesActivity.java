@@ -1,6 +1,7 @@
 package de.atomfrede.mate.android.preferences;
 
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.googlecode.androidannotations.annotations.AfterViews;
@@ -43,8 +44,10 @@ public class PreferencesActivity extends FragmentActivity {
 			password.setText(mPrefs.password().get());
 		}
 	}
-
+	
+	@Override
 	public void onBackPressed() {
+		Log.d("Mate", "On Back Pressed!");
 		readApiRoot();
 		readUserName();
 		readPassword();
