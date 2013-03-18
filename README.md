@@ -3,6 +3,8 @@ Matedroid
 
 Android Companion for [Club Mate Office tracking application](https://github.com/atomfrede/freezing-octo-bear).
 
+[![endorse](http://api.coderwall.com/atomfrede/endorsecount.png)](http://coderwall.com/atomfrede)
+
 Contributors
 ============
 
