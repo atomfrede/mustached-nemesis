@@ -7,11 +7,11 @@ import com.googlecode.androidannotations.annotations.sharedpreferences.SharedPre
 @SharedPref(value=Scope.UNIQUE)
 public interface MyMatePreferences {
 	
-	@DefaultString("http://192.168.0.101:8080/mate.application")
+	@DefaultString("http://simpletour.de:8080/mate")
 	String apiRoot();
-	@DefaultString("fred")
+	@DefaultString("")
 	String username();
-	@DefaultString("fred")
+	@DefaultString("")
 	String password();
 	
 	long userId();
