@@ -3,7 +3,7 @@ Matedroid
 
 Android Companion for [Club Mate Office tracking application](https://github.com/atomfrede/freezing-octo-bear).
 
-[![Build Status](https://drone.io/github.com/atomfrede/mustached-nemesis/status.png)](https://drone.io/github.com/atomfrede/mustached-nemesis/latest)[![endorse](http://api.coderwall.com/atomfrede/endorsecount.png)](http://coderwall.com/atomfrede)
+[![Build Status](https://drone.io/github.com/atomfrede/mustached-nemesis/status.png)](https://drone.io/github.com/atomfrede/mustached-nemesis/latest) [![endorse](http://api.coderwall.com/atomfrede/endorsecount.png)](http://coderwall.com/atomfrede)
 
 Contributors
 ============
