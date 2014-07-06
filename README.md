@@ -3,7 +3,7 @@ Matedroid
 
 Android Companion for [Club Mate Office tracking application](https://github.com/atomfrede/freezing-octo-bear).
 
-[![endorse](http://api.coderwall.com/atomfrede/endorsecount.png)](http://coderwall.com/atomfrede)
+[![Build Status](https://drone.io/github.com/atomfrede/mustached-nemesis/status.png)](https://drone.io/github.com/atomfrede/mustached-nemesis/latest)[![endorse](http://api.coderwall.com/atomfrede/endorsecount.png)](http://coderwall.com/atomfrede)
 
 Contributors
 ============
@@ -11,7 +11,7 @@ Contributors
 License
 ========
 
-    Copyright 2013 Frederik Hahne
+    Copyright 2013 - 2014 Frederik Hahne
 	
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
