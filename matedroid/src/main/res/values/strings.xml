@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello Matedroid!</string>
+    <string name="app_name">Matedroid</string>
+    <string name="bottle_success">You\'re refreshed!</string>
+    <string name="my_account_header">My Account</string>
+    <string name="my_account_consumes">Your Mates: %1$d</string>
+    <string name="my_account_credit">Current credit: %1$d</string>
+    <string name="all_bottles_header">Available Mates</string>
+    <string name="all_bottles_text">%1$d mates left.</string>
+    <string name="error_no_mates">No mates left. Need some supplies!</string>
+    <string name="error_connection_failed">Connection failed. Check your settings.</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="menu_settings">Settings</string>
+    <string name="settings_rest_root">Rest Interface Root</string>
+    <string name="settings_user_name">Username</string>
+    <string name="settings_password">Password</string>
+    <string name="title_activity_preferences">PreferencesActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
